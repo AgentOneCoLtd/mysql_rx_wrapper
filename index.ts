@@ -1,4 +1,5 @@
 export * from './src/cores/connection_connect';
+export * from './src/cores/connection_end';
 export * from './src/cores/ok_packet';
 export * from './src/cores/pool_get_connection';
 export * from './src/cores/query';
