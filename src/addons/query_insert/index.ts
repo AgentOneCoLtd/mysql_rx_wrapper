@@ -1,3 +1,4 @@
+import { isEmptyObject } from '@ag1/empty_object';
 import { Connection, PoolConnection } from 'mysql';
 import { IOkPacket } from '../../cores/ok_packet';
 import { query } from '../../cores/query';
@@ -8,11 +9,15 @@ export function getSqlInsertStatement(table: string) {
 
 export interface IQueryInsertParam<T> {
     table: string,
-    values: T,
+    values: T & object,
     connection: Connection | PoolConnection,
 }
 export function queryInsert<T>(param: IQueryInsertParam<T>) {
     const { table, values, connection } = param;
+
+    if (isEmptyObject(values)) {
+        throw new Error('NO_EMPTY_OBJECT');
+    }
 
     const sqlInsertStatement = getSqlInsertStatement(table);
 
