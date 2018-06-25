@@ -31,13 +31,13 @@ export function getSqlUpdateOnMatchStatement(table: string, matchProps: object) 
     return `UPDATE ${table} SET ? WHERE ${escapeMatchProps(table, matchProps)};`;
 }
 
-export interface IQueryUpdateOnMatchParam<T, U> {
+export interface IQueryUpdateOnMatchParam<T> {
     table: string,
     matchProps: T & object,
-    values: U & object,
+    values: T & object,
     connection: Connection | PoolConnection,
 }
-export function queryUpdateOnMatch<T, U>(param: IQueryUpdateOnMatchParam<T, U>) {
+export function queryUpdateOnMatch<T>(param: IQueryUpdateOnMatchParam<T>) {
     const { table, matchProps, values, connection } = param;
 
     if (isEmptyObject(matchProps) || isEmptyObject(values)) {
