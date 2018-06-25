@@ -17,6 +17,16 @@ describe('escapeMatchProps', () => {
         expect(sql)
             .toBe('`foo`.`a` = 1');
     });
+    it('should return `foo`.`a` IS NULL', () => {
+        const sql = index_1.escapeMatchProps('foo', { a: null });
+        expect(sql)
+            .toBe('`foo`.`a` IS NULL');
+    });
+    it('should return `foo`.`b` IS NULL', () => {
+        const sql = index_1.escapeMatchProps('foo', { b: undefined });
+        expect(sql)
+            .toBe('`foo`.`b` IS NULL');
+    });
     it('should throw error (empty obj)', () => {
         const getlSql = () => index_1.escapeMatchProps('foo', {});
         expect(getlSql)

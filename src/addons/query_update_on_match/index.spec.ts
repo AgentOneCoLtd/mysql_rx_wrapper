@@ -22,6 +22,20 @@ describe('escapeMatchProps', () => {
             .toBe('`foo`.`a` = 1');
     });
 
+    it('should return `foo`.`a` IS NULL', () => {
+        const sql = escapeMatchProps('foo', { a: null });
+
+        expect(sql)
+            .toBe('`foo`.`a` IS NULL');
+    });
+
+    it('should return `foo`.`b` IS NULL', () => {
+        const sql = escapeMatchProps('foo', { b: undefined });
+
+        expect(sql)
+            .toBe('`foo`.`b` IS NULL');
+    });
+
     it('should throw error (empty obj)', () => {
         const getlSql = () => escapeMatchProps('foo', {});
 
