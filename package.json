@@ -1,0 +1,56 @@
+{
+  "name": "mysql_rx_wrapper",
+  "version": "0.1.0",
+  "description": "use mysql lib in rx style",
+  "main": "index.js",
+  "author": "agent one co., ltd.",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "yarn lint && yarn compile",
+    "compile": "tsc",
+    "lint": "tslint -p tsconfig.json -t stylish",
+    "test": "NODE_ENV=test jest"
+  },
+  "peerDependencies": {
+    "mysql": "^2.15.0",
+    "rxjs": "^6.2.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.1.1",
+    "@types/mysql": "^2.15.5",
+    "jest": "^23.1.0",
+    "mysql": "^2.15.0",
+    "rxjs": "^6.2.1",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  },
+  "keywords": [
+    "mysql",
+    "rxjs",
+    "typescript"
+  ],
+  "repository": {
+    "url": "https://github.com/AgentOneCoLtd/mysql_rx_wrapper.git",
+    "type": "git"
+  },
+  "readmeFilename": "readme.md",
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/*.spec.+(ts)"
+    ]
+  }
+}
