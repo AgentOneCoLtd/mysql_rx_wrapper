@@ -1,5 +1,5 @@
 {
-  "name": "mysql_rx_wrapper",
+  "name": "@ag1/mysql_rx_wrapper",
   "version": "0.1.0",
   "description": "use mysql lib in rx style",
   "main": "index.js",
