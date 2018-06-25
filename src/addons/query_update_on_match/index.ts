@@ -3,11 +3,11 @@ import { Connection, escape, escapeId, PoolConnection } from 'mysql';
 import { IOkPacket } from '../../cores/ok_packet';
 import { query } from '../../cores/query';
 
-export function getSqlWhereClause(table: string, matchProps: object) {
+export function escapeMatchProps(table: string, matchProps: object) {
     const matchPropsStr = escape(matchProps);
 
     if (matchPropsStr.length === 0) {
-        throw new Error('WHERE_CLAUSE_EXPECTED');
+        throw new Error('MATCH_PROPS_EXPECTED');
     }
 
     return matchPropsStr
@@ -17,7 +17,7 @@ export function getSqlWhereClause(table: string, matchProps: object) {
 }
 
 export function getSqlUpdateOnMatchStatement(table: string, matchProps: object) {
-    return `UPDATE ${table} SET ? WHERE ${getSqlWhereClause(table, matchProps)};`;
+    return `UPDATE ${table} SET ? WHERE ${escapeMatchProps(table, matchProps)};`;
 }
 
 export interface IQueryUpdateOnMatchParam<T, U> {
