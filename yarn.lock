@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@ag1/empty_object@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@ag1/empty_object/-/empty_object-0.1.0.tgz#d8b72e1907f0901863b688ab6feded56aaa2663f"
+
 "@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0-beta.51"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.51.tgz#bd71d9b192af978df915829d39d4094456439a0c"
