@@ -17,10 +17,10 @@ export function autoHandleTransaction<T>(connection: Connection | PoolConnection
 
         mergeMap((result) =>
             queryCommitTransaction({ connection }).pipe(
-                () => of(result))),
+                mergeMap(() => of(result)))),
 
         catchError((error) =>
             queryRollbackTransaction({ connection }).pipe(
-                () => throwError(error))),
+                mergeMap(() => throwError(error)))),
     );
 }

@@ -12,6 +12,6 @@ const query_start_transaction_1 = require("../query_start_transaction");
  * @return              result of query
  */
 function autoHandleTransaction(connection, query) {
-    return query_start_transaction_1.queryStartTransaction({ connection }).pipe(operators_1.mergeMap(() => query), operators_1.mergeMap((result) => query_commit_transaction_1.queryCommitTransaction({ connection }).pipe(() => rxjs_1.of(result))), operators_1.catchError((error) => query_rollback_transaction_1.queryRollbackTransaction({ connection }).pipe(() => rxjs_1.throwError(error))));
+    return query_start_transaction_1.queryStartTransaction({ connection }).pipe(operators_1.mergeMap(() => query), operators_1.mergeMap((result) => query_commit_transaction_1.queryCommitTransaction({ connection }).pipe(operators_1.mergeMap(() => rxjs_1.of(result)))), operators_1.catchError((error) => query_rollback_transaction_1.queryRollbackTransaction({ connection }).pipe(operators_1.mergeMap(() => rxjs_1.throwError(error)))));
 }
 exports.autoHandleTransaction = autoHandleTransaction;
