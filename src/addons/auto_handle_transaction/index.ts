@@ -6,7 +6,7 @@ import { queryRollbackTransaction } from '../query_rollback_transaction';
 import { queryStartTransaction } from '../query_start_transaction';
 
 /**
- * auto handle start, commit, and rollback tracsaction
+ * start tracsaction; do task; commit if success; rollback if fail
  * @param   connection  connection that is used in query
  * @param   query       query to execute in transaction
  * @return              result of query
