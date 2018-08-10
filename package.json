@@ -1,6 +1,6 @@
 {
   "name": "@ag1/mysql_rx_wrapper",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "use mysql lib in rx style",
   "main": "index.js",
   "author": "agent one co., ltd.",
