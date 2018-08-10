@@ -12,11 +12,13 @@ var auto_handle_pool_connection_1 = require("./src/addons/auto_handle_pool_conne
 exports.autoHandlePoolConnection = auto_handle_pool_connection_1.autoHandlePoolConnection;
 __export(require("./src/addons/auto_handle_transaction"));
 __export(require("./src/addons/escape_match_props"));
+__export(require("./src/addons/get_sql_limit_clause"));
 var pool_job_1 = require("./src/addons/pool_job");
 exports.poolJob = pool_job_1.poolJob;
 __export(require("./src/addons/query_commit_transaction"));
 __export(require("./src/addons/query_insert"));
 __export(require("./src/addons/query_rollback_transaction"));
+__export(require("./src/addons/query_select_all"));
 __export(require("./src/addons/query_select_on_match"));
 __export(require("./src/addons/query_start_transaction"));
 __export(require("./src/addons/query_update_on_match"));
