@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("./index");
 describe('getSqlUpdateOnMatchStatement', () => {
-    it("should return UPDATE foo SET ? WHERE `foo`.`a` = 'a';", () => {
+    it("should return UPDATE `foo` SET ? WHERE `foo`.`a` = 'a';", () => {
         const sql = index_1.getSqlUpdateOnMatchStatement('foo', { a: 'a' });
-        expect(sql).toBe("UPDATE foo SET ? WHERE `foo`.`a` = 'a';");
+        expect(sql).toBe("UPDATE `foo` SET ? WHERE `foo`.`a` = 'a';");
     });
 });
 describe('queryUpdateOnMatch', () => {

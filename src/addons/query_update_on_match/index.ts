@@ -1,11 +1,11 @@
 import { isEmptyObject } from '@ag1/empty_object';
-import { Connection, PoolConnection } from 'mysql';
+import { Connection, escapeId, PoolConnection } from 'mysql';
 import { IOkPacket } from '../../cores/ok_packet';
 import { query } from '../../cores/query';
 import { escapeMatchProps } from '../escape_match_props';
 
 export function getSqlUpdateOnMatchStatement(table: string, matchProps: object) {
-    return `UPDATE ${table} SET ? WHERE ${escapeMatchProps(table, matchProps)};`;
+    return `UPDATE ${escapeId(table)} SET ? WHERE ${escapeMatchProps(table, matchProps)};`;
 }
 
 export interface IQueryUpdateOnMatchParam<T> {

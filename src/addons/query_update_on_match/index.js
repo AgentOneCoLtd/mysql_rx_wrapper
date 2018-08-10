@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const empty_object_1 = require("@ag1/empty_object");
+const mysql_1 = require("mysql");
 const query_1 = require("../../cores/query");
 const escape_match_props_1 = require("../escape_match_props");
 function getSqlUpdateOnMatchStatement(table, matchProps) {
-    return `UPDATE ${table} SET ? WHERE ${escape_match_props_1.escapeMatchProps(table, matchProps)};`;
+    return `UPDATE ${mysql_1.escapeId(table)} SET ? WHERE ${escape_match_props_1.escapeMatchProps(table, matchProps)};`;
 }
 exports.getSqlUpdateOnMatchStatement = getSqlUpdateOnMatchStatement;
 function queryUpdateOnMatch(param) {

@@ -1,10 +1,10 @@
 import { getSqlUpdateOnMatchStatement, queryUpdateOnMatch } from './index';
 
 describe('getSqlUpdateOnMatchStatement', () => {
-    it("should return UPDATE foo SET ? WHERE `foo`.`a` = 'a';", () => {
+    it("should return UPDATE `foo` SET ? WHERE `foo`.`a` = 'a';", () => {
         const sql = getSqlUpdateOnMatchStatement('foo', { a: 'a' });
 
-        expect(sql).toBe("UPDATE foo SET ? WHERE `foo`.`a` = 'a';");
+        expect(sql).toBe("UPDATE `foo` SET ? WHERE `foo`.`a` = 'a';");
     });
 });
 
