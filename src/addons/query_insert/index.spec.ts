@@ -1,10 +1,10 @@
 import { getSqlInsertStatement, queryInsert } from './index';
 
 describe('getSqlInsertStatement', () => {
-    it('should return INSERT INTO foobar SET ?;', () => {
+    it('should return INSERT INTO `foobar` SET ?;', () => {
         const sqlInsertStatement = getSqlInsertStatement('foobar');
 
-        expect(sqlInsertStatement).toBe('INSERT INTO foobar SET ?;');
+        expect(sqlInsertStatement).toBe('INSERT INTO `foobar` SET ?;');
     });
 });
 

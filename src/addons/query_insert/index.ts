@@ -1,10 +1,10 @@
 import { isEmptyObject } from '@ag1/empty_object';
-import { Connection, PoolConnection } from 'mysql';
+import { Connection, escapeId, PoolConnection } from 'mysql';
 import { IOkPacket } from '../../cores/ok_packet';
 import { query } from '../../cores/query';
 
 export function getSqlInsertStatement(table: string) {
-    return `INSERT INTO ${table} SET ?;`;
+    return `INSERT INTO ${escapeId(table)} SET ?;`;
 }
 
 export interface IQueryInsertParam<T> {

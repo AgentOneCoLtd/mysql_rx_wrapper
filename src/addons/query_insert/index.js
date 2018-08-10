@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const empty_object_1 = require("@ag1/empty_object");
+const mysql_1 = require("mysql");
 const query_1 = require("../../cores/query");
 function getSqlInsertStatement(table) {
-    return `INSERT INTO ${table} SET ?;`;
+    return `INSERT INTO ${mysql_1.escapeId(table)} SET ?;`;
 }
 exports.getSqlInsertStatement = getSqlInsertStatement;
 function queryInsert(param) {
