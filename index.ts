@@ -11,5 +11,6 @@ export { poolJob } from './src/addons/pool_job';
 export * from './src/addons/query_commit_transaction';
 export * from './src/addons/query_insert';
 export * from './src/addons/query_rollback_transaction';
+export * from './src/addons/query_select_on_match';
 export * from './src/addons/query_start_transaction';
 export * from './src/addons/query_update_on_match';

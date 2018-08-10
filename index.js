@@ -17,5 +17,6 @@ exports.poolJob = pool_job_1.poolJob;
 __export(require("./src/addons/query_commit_transaction"));
 __export(require("./src/addons/query_insert"));
 __export(require("./src/addons/query_rollback_transaction"));
+__export(require("./src/addons/query_select_on_match"));
 __export(require("./src/addons/query_start_transaction"));
 __export(require("./src/addons/query_update_on_match"));
