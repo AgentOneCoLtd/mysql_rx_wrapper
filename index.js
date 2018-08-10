@@ -11,6 +11,7 @@ __export(require("./src/cores/query"));
 var auto_handle_pool_connection_1 = require("./src/addons/auto_handle_pool_connection");
 exports.autoHandlePoolConnection = auto_handle_pool_connection_1.autoHandlePoolConnection;
 __export(require("./src/addons/auto_handle_transaction"));
+__export(require("./src/addons/escape_match_props"));
 var pool_job_1 = require("./src/addons/pool_job");
 exports.poolJob = pool_job_1.poolJob;
 __export(require("./src/addons/query_commit_transaction"));
