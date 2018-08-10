@@ -1,3 +1,5 @@
+// tslint:disable:no-unsafe-any
+
 import { query } from './index';
 
 it('should get [result, fields]', (done) => {
@@ -13,11 +15,9 @@ it('should get [result, fields]', (done) => {
         connection: mockConnection as any,
     }).subscribe({
         next([result, fields]) {
-            expect(result)
-                .toBe(mockResult);
+            expect(result).toBe(mockResult);
 
-            expect(fields)
-                .toBe(mockFields);
+            expect(fields).toBe(mockFields);
         },
         error(error) {
             done.fail(error);
@@ -42,8 +42,7 @@ it('should get error', (done) => {
             done.fail('should not be called');
         },
         error(error) {
-            expect(error)
-                .toBeDefined();
+            expect(error).toBeDefined();
 
             done();
         },

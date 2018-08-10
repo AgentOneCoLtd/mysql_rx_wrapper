@@ -15,12 +15,8 @@ export function autoHandleTransaction<T>(connection: Connection | PoolConnection
     return queryStartTransaction({ connection }).pipe(
         mergeMap(() => query),
 
-        mergeMap((result) =>
-            queryCommitTransaction({ connection }).pipe(
-                mergeMap(() => of(result)))),
+        mergeMap((result) => queryCommitTransaction({ connection }).pipe(mergeMap(() => of(result)))),
 
-        catchError((error) =>
-            queryRollbackTransaction({ connection }).pipe(
-                mergeMap(() => throwError(error)))),
+        catchError((error) => queryRollbackTransaction({ connection }).pipe(mergeMap(() => throwError(error)))),
     );
 }

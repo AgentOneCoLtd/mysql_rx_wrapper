@@ -7,7 +7,7 @@ export function getSqlRollbackTransactionStatement() {
 }
 
 export interface IQueryRollbackTransactionParam {
-    connection: Connection | PoolConnection,
+    connection: Connection | PoolConnection;
 }
 export function queryRollbackTransaction(param: IQueryRollbackTransactionParam) {
     const { connection } = param;

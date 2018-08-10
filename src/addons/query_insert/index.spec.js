@@ -4,8 +4,7 @@ const index_1 = require("./index");
 describe('getSqlInsertStatement', () => {
     it('should return INSERT INTO foobar SET ?;', () => {
         const sqlInsertStatement = index_1.getSqlInsertStatement('foobar');
-        expect(sqlInsertStatement)
-            .toBe('INSERT INTO foobar SET ?;');
+        expect(sqlInsertStatement).toBe('INSERT INTO foobar SET ?;');
     });
 });
 describe('queryInsert', () => {
@@ -15,7 +14,6 @@ describe('queryInsert', () => {
             values: {},
             connection: 'conn',
         });
-        expect(fx)
-            .toThrowError();
+        expect(fx).toThrowError();
     });
 });

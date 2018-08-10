@@ -1,3 +1,5 @@
+// tslint:disable:no-unsafe-any
+
 import { of, throwError } from 'rxjs';
 import { getConnection } from '../../cores/pool_get_connection';
 import { autoHandleTransaction } from '../auto_handle_transaction';
@@ -13,12 +15,10 @@ beforeEach(() => {
 describe('getQueryResult', () => {
     it('should return [connection, result]', (done) => {
         const RESULT = 'foobar';
-        const mockAutoHandleTransaction = (autoHandleTransaction as any)
-            .mockReturnValue(of(RESULT));
+        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(of(RESULT));
 
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction))) {
-
+        if (!jest.isMockFunction(mockAutoHandleTransaction)) {
             throw new Error('MOCK_EXPECTED');
         }
 
@@ -27,11 +27,9 @@ describe('getQueryResult', () => {
 
         getQueryResult(mockConn, mockQueryConnHigherOrder).subscribe({
             next([connection, result]) {
-                expect(connection)
-                    .toBe(mockConn);
+                expect(connection).toBe(mockConn);
 
-                expect(result)
-                    .toBe(RESULT);
+                expect(result).toBe(RESULT);
             },
             error(error) {
                 done.fail(error);
@@ -41,12 +39,12 @@ describe('getQueryResult', () => {
     });
 
     it('should throw [connection, error]', (done) => {
-        const mockAutoHandleTransaction = (autoHandleTransaction as any)
-            .mockReturnValue(throwError(new Error('foobar')));
+        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(
+            throwError(new Error('foobar')),
+        );
 
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction))) {
-
+        if (!jest.isMockFunction(mockAutoHandleTransaction)) {
             throw new Error('MOCK_EXPECTED');
         }
 
@@ -58,11 +56,9 @@ describe('getQueryResult', () => {
                 done.fail('should not be called');
             },
             error([connection, error]) {
-                expect(connection)
-                    .toBe(mockConn);
+                expect(connection).toBe(mockConn);
 
-                expect(error)
-                    .toBeDefined();
+                expect(error).toBeDefined();
 
                 done();
             },
@@ -83,29 +79,23 @@ describe('poolJob', () => {
         const mockQueryConnHigherOrder = jest.fn();
 
         const RESULT = 'foobar';
-        const mockAutoHandleTransaction = (autoHandleTransaction as any)
-            .mockReturnValue(of(RESULT));
-        const mockGetConn = (getConnection as any)
-            .mockReturnValue(of(mockConn));
+        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(of(RESULT));
+        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
 
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction)
-            && jest.isMockFunction(mockGetConn))) {
-
+        if (!(jest.isMockFunction(mockAutoHandleTransaction) && jest.isMockFunction(mockGetConn))) {
             throw new Error('MOCK_EXPECTED');
         }
 
         poolJob(mockConn, mockQueryConnHigherOrder).subscribe({
             next(result) {
-                expect(result)
-                    .toBe(RESULT);
+                expect(result).toBe(RESULT);
             },
             error(error) {
                 done.fail(error);
             },
             complete() {
-                expect(mockReleaseFn.mock.calls.length)
-                    .toBe(1);
+                expect(mockReleaseFn.mock.calls.length).toBe(1);
 
                 done();
             },
@@ -120,15 +110,13 @@ describe('poolJob', () => {
 
         const mockQueryConnHigherOrder = jest.fn();
 
-        const mockAutoHandleTransaction = (autoHandleTransaction as any)
-            .mockReturnValue(throwError(new Error('foobar')));
-        const mockGetConn = (getConnection as any)
-            .mockReturnValue(of(mockConn));
+        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(
+            throwError(new Error('foobar')),
+        );
+        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
 
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction)
-            && jest.isMockFunction(mockGetConn))) {
-
+        if (!(jest.isMockFunction(mockAutoHandleTransaction) && jest.isMockFunction(mockGetConn))) {
             throw new Error('MOCK_EXPECTED');
         }
 
@@ -137,11 +125,9 @@ describe('poolJob', () => {
                 done.fail('should not be called');
             },
             error(error) {
-                expect(error)
-                    .toBeDefined();
+                expect(error).toBeDefined();
 
-                expect(mockReleaseFn.mock.calls.length)
-                    .toBe(1);
+                expect(mockReleaseFn.mock.calls.length).toBe(1);
 
                 done();
             },

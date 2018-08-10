@@ -10,11 +10,9 @@ export function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrd
     const obseravble = autoHandleTransaction(connection, queryConnHigherOrder(connection));
 
     return obseravble.pipe(
-        mergeMap((result) =>
-            of([connection, result] as [PoolConnection, T])),
+        mergeMap((result) => of([connection, result] as [PoolConnection, T])),
 
-        catchError((error) =>
-            throwError([connection, error] as [PoolConnection, any])),
+        catchError((error) => throwError([connection, error] as [PoolConnection, any])),
     );
 }
 
@@ -28,8 +26,7 @@ export function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrd
  */
 export function poolJob<T>(pool: Pool, queryConnHigherOrder: queryConnHigherOrder<T>) {
     return getConnection(pool).pipe(
-        mergeMap((connection) =>
-            getQueryResult<T>(connection, queryConnHigherOrder)),
+        mergeMap((connection) => getQueryResult<T>(connection, queryConnHigherOrder)),
 
         mergeMap(([connection, result]) => {
             connection.release();
@@ -37,7 +34,7 @@ export function poolJob<T>(pool: Pool, queryConnHigherOrder: queryConnHigherOrde
             return of(result);
         }),
 
-        catchError(([connection, error]) => {
+        catchError(([connection, error]: [PoolConnection, any]) => {
             connection.release();
 
             return throwError(error);

@@ -1,3 +1,5 @@
+// tslint:disable:no-unsafe-any
+
 import { of, throwError } from 'rxjs';
 import { getConnection } from '../../cores/pool_get_connection';
 import { autoHandlePoolConnection, getQueryResult } from './index';
@@ -12,11 +14,9 @@ describe('getQueryResult', () => {
 
         getQueryResult(mockConn, mockQueryConnHigherOrder).subscribe({
             next([connection, result]) {
-                expect(connection)
-                    .toBe(mockConn);
+                expect(connection).toBe(mockConn);
 
-                expect(result)
-                    .toBe(RESULT);
+                expect(result).toBe(RESULT);
             },
             error(error) {
                 done.fail(error);
@@ -34,11 +34,9 @@ describe('getQueryResult', () => {
                 done.fail('should not be called');
             },
             error([connection, error]) {
-                expect(connection)
-                    .toBe(mockConn);
+                expect(connection).toBe(mockConn);
 
-                expect(error)
-                    .toBeDefined();
+                expect(error).toBeDefined();
 
                 done();
             },
@@ -63,26 +61,22 @@ describe('autoHandlePoolConnection', () => {
         const RESULT = 'foobar';
         const mockQueryConnHigherOrder = (_conn: any) => of(RESULT);
 
-        const mockGetConn = (getConnection as any)
-            .mockReturnValue(of(mockConn));
+        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
 
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockGetConn))) {
-
+        if (!jest.isMockFunction(mockGetConn)) {
             throw new Error('MOCK_EXPECTED');
         }
 
         autoHandlePoolConnection(mockConn, mockQueryConnHigherOrder).subscribe({
             next(result) {
-                expect(result)
-                    .toBe(RESULT);
+                expect(result).toBe(RESULT);
             },
             error(error) {
                 done.fail(error);
             },
             complete() {
-                expect(mockReleaseFn.mock.calls.length)
-                    .toBe(1);
+                expect(mockReleaseFn.mock.calls.length).toBe(1);
 
                 done();
             },
@@ -97,12 +91,10 @@ describe('autoHandlePoolConnection', () => {
 
         const mockQueryConnHigherOrder = (_conn: any) => throwError(new Error('foobar'));
 
-        const mockGetConn = (getConnection as any)
-            .mockReturnValue(of(mockConn));
+        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
 
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockGetConn))) {
-
+        if (!jest.isMockFunction(mockGetConn)) {
             throw new Error('MOCK_EXPECTED');
         }
 
@@ -111,11 +103,9 @@ describe('autoHandlePoolConnection', () => {
                 done.fail('should not be called');
             },
             error(error) {
-                expect(error)
-                    .toBeDefined();
+                expect(error).toBeDefined();
 
-                expect(mockReleaseFn.mock.calls.length)
-                    .toBe(1);
+                expect(mockReleaseFn.mock.calls.length).toBe(1);
 
                 done();
             },

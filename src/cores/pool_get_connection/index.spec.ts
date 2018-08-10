@@ -1,3 +1,5 @@
+// tslint:disable:no-unsafe-any
+
 import { getConnection } from './index';
 
 it('should get pool connection', (done) => {
@@ -9,11 +11,9 @@ it('should get pool connection', (done) => {
 
     getConnection(mockPool).subscribe({
         next(connection) {
-            expect(connection)
-                .toBe(mockResult);
+            expect(connection).toBe(mockResult);
 
-            expect(mockGetConnectionFn.mock.calls.length)
-                .toBe(1);
+            expect(mockGetConnectionFn.mock.calls.length).toBe(1);
         },
         error(error) {
             done.fail(error);
@@ -34,8 +34,7 @@ it('should get error', (done) => {
             done.fail('should not be called');
         },
         error(error) {
-            expect(error)
-                .toBeDefined();
+            expect(error).toBeDefined();
 
             done();
         },

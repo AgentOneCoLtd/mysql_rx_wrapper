@@ -32,10 +32,10 @@ export function getSqlUpdateOnMatchStatement(table: string, matchProps: object) 
 }
 
 export interface IQueryUpdateOnMatchParam<T> {
-    table: string,
-    matchProps: T & object,
-    values: T & object,
-    connection: Connection | PoolConnection,
+    table: string;
+    matchProps: T & object;
+    values: T & object;
+    connection: Connection | PoolConnection;
 }
 export function queryUpdateOnMatch<T>(param: IQueryUpdateOnMatchParam<T>) {
     const { table, matchProps, values, connection } = param;

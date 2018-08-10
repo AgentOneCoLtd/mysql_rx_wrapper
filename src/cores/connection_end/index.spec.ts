@@ -1,3 +1,5 @@
+// tslint:disable:no-unsafe-any
+
 import { end } from './index';
 
 it('should end connection', (done) => {
@@ -9,11 +11,9 @@ it('should end connection', (done) => {
 
     end(mockConnection).subscribe({
         next(result) {
-            expect(result)
-                .toBe(mockResult);
+            expect(result).toBe(mockResult);
 
-            expect(mockConnectFn.mock.calls.length)
-                .toBe(1);
+            expect(mockConnectFn.mock.calls.length).toBe(1);
         },
         error(error) {
             done.fail(error);
@@ -34,8 +34,7 @@ it('should get error', (done) => {
             done.fail('should not be called');
         },
         error(error) {
-            expect(error)
-                .toBeDefined();
+            expect(error).toBeDefined();
 
             done();
         },

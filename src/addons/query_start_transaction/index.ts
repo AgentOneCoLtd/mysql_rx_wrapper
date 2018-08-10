@@ -7,7 +7,7 @@ export function getSqlStartTransactionStatement() {
 }
 
 export interface IQueryStartTransactionParam {
-    connection: Connection | PoolConnection,
+    connection: Connection | PoolConnection;
 }
 export function queryStartTransaction(param: IQueryStartTransactionParam) {
     const { connection } = param;

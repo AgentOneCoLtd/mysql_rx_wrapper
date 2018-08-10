@@ -1,4 +1,5 @@
 "use strict";
+// tslint:disable:no-unsafe-any
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
 const pool_get_connection_1 = require("../../cores/pool_get_connection");
@@ -12,20 +13,17 @@ beforeEach(() => {
 describe('getQueryResult', () => {
     it('should return [connection, result]', (done) => {
         const RESULT = 'foobar';
-        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction
-            .mockReturnValue(rxjs_1.of(RESULT));
+        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction.mockReturnValue(rxjs_1.of(RESULT));
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction))) {
+        if (!jest.isMockFunction(mockAutoHandleTransaction)) {
             throw new Error('MOCK_EXPECTED');
         }
         const mockConn = 'conn';
         const mockQueryConnHigherOrder = jest.fn();
         index_1.getQueryResult(mockConn, mockQueryConnHigherOrder).subscribe({
             next([connection, result]) {
-                expect(connection)
-                    .toBe(mockConn);
-                expect(result)
-                    .toBe(RESULT);
+                expect(connection).toBe(mockConn);
+                expect(result).toBe(RESULT);
             },
             error(error) {
                 done.fail(error);
@@ -34,10 +32,9 @@ describe('getQueryResult', () => {
         });
     });
     it('should throw [connection, error]', (done) => {
-        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction
-            .mockReturnValue(rxjs_1.throwError(new Error('foobar')));
+        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction.mockReturnValue(rxjs_1.throwError(new Error('foobar')));
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction))) {
+        if (!jest.isMockFunction(mockAutoHandleTransaction)) {
             throw new Error('MOCK_EXPECTED');
         }
         const mockConn = 'conn';
@@ -47,10 +44,8 @@ describe('getQueryResult', () => {
                 done.fail('should not be called');
             },
             error([connection, error]) {
-                expect(connection)
-                    .toBe(mockConn);
-                expect(error)
-                    .toBeDefined();
+                expect(connection).toBe(mockConn);
+                expect(error).toBeDefined();
                 done();
             },
             complete() {
@@ -67,26 +62,21 @@ describe('poolJob', () => {
         };
         const mockQueryConnHigherOrder = jest.fn();
         const RESULT = 'foobar';
-        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction
-            .mockReturnValue(rxjs_1.of(RESULT));
-        const mockGetConn = pool_get_connection_1.getConnection
-            .mockReturnValue(rxjs_1.of(mockConn));
+        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction.mockReturnValue(rxjs_1.of(RESULT));
+        const mockGetConn = pool_get_connection_1.getConnection.mockReturnValue(rxjs_1.of(mockConn));
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction)
-            && jest.isMockFunction(mockGetConn))) {
+        if (!(jest.isMockFunction(mockAutoHandleTransaction) && jest.isMockFunction(mockGetConn))) {
             throw new Error('MOCK_EXPECTED');
         }
         index_1.poolJob(mockConn, mockQueryConnHigherOrder).subscribe({
             next(result) {
-                expect(result)
-                    .toBe(RESULT);
+                expect(result).toBe(RESULT);
             },
             error(error) {
                 done.fail(error);
             },
             complete() {
-                expect(mockReleaseFn.mock.calls.length)
-                    .toBe(1);
+                expect(mockReleaseFn.mock.calls.length).toBe(1);
                 done();
             },
         });
@@ -97,13 +87,10 @@ describe('poolJob', () => {
             release: mockReleaseFn,
         };
         const mockQueryConnHigherOrder = jest.fn();
-        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction
-            .mockReturnValue(rxjs_1.throwError(new Error('foobar')));
-        const mockGetConn = pool_get_connection_1.getConnection
-            .mockReturnValue(rxjs_1.of(mockConn));
+        const mockAutoHandleTransaction = auto_handle_transaction_1.autoHandleTransaction.mockReturnValue(rxjs_1.throwError(new Error('foobar')));
+        const mockGetConn = pool_get_connection_1.getConnection.mockReturnValue(rxjs_1.of(mockConn));
         // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction)
-            && jest.isMockFunction(mockGetConn))) {
+        if (!(jest.isMockFunction(mockAutoHandleTransaction) && jest.isMockFunction(mockGetConn))) {
             throw new Error('MOCK_EXPECTED');
         }
         index_1.poolJob(mockConn, mockQueryConnHigherOrder).subscribe({
@@ -111,10 +98,8 @@ describe('poolJob', () => {
                 done.fail('should not be called');
             },
             error(error) {
-                expect(error)
-                    .toBeDefined();
-                expect(mockReleaseFn.mock.calls.length)
-                    .toBe(1);
+                expect(error).toBeDefined();
+                expect(mockReleaseFn.mock.calls.length).toBe(1);
                 done();
             },
             complete() {

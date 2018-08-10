@@ -9,11 +9,9 @@ export type queryConnHigherOrder<T> = (connection: PoolConnection) => Observable
 // private use
 export function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrder: queryConnHigherOrder<T>) {
     return queryConnHigherOrder(connection).pipe(
-        mergeMap((result) =>
-            of([connection, result] as [PoolConnection, T])),
+        mergeMap((result) => of([connection, result] as [PoolConnection, T])),
 
-        catchError((error) =>
-            throwError([connection, error] as [PoolConnection, any])),
+        catchError((error) => throwError([connection, error] as [PoolConnection, any])),
     );
 }
 
@@ -27,8 +25,7 @@ export function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrd
  */
 export function autoHandlePoolConnection<T>(pool: Pool, queryConnHigherOrder: queryConnHigherOrder<T>) {
     return getConnection(pool).pipe(
-        mergeMap((connection) =>
-            getQueryResult<T>(connection, queryConnHigherOrder)),
+        mergeMap((connection) => getQueryResult<T>(connection, queryConnHigherOrder)),
 
         mergeMap(([connection, result]) => {
             connection.release();
@@ -36,7 +33,7 @@ export function autoHandlePoolConnection<T>(pool: Pool, queryConnHigherOrder: qu
             return of(result);
         }),
 
-        catchError(([connection, error]) => {
+        catchError(([connection, error]: [PoolConnection, any]) => {
             connection.release();
 
             return throwError(error);

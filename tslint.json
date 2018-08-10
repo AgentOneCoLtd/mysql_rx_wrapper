@@ -1,37 +1,33 @@
 {
-  "defaultSeverity": "error",
-  "extends": ["tslint:all"],
-  "jsRules": {},
+  "extends": ["tslint-microsoft-contrib"],
   "rules": {
-    "array-type": false,
-    "comment-format": false,
-    "completed-docs": false,
-    "interface-over-type-literal": false,
-    "member-access": false,
-    "member-ordering": false,
-    "newline-per-chained-call": false,
+    "align": [true, "elements", "members", "parameters", "statements"],
+    "export-name": false,
+    "import-name": false,
+    "missing-jsdoc": false,
+    "non-literal-require": false,
     "no-any": false,
-    "no-implicit-dependencies": false,
-    "no-null-keyword": false,
-    "no-parameter-properties": false,
+    "no-console": {
+      "severity": "warning"
+    },
+    "no-object-literal-type-assertion": false,
+    "no-relative-imports": false,
     "no-require-imports": false,
     "no-shadowed-variable": false,
     "no-submodule-imports": [true, "rxjs"],
-    "no-unbound-method": false,
-    "no-unsafe-any": false,
-    "object-literal-sort-keys": false,
-    "only-arrow-functions": [
-      true, "allow-declarations", "allow-named-functions"
-    ],
-    "quotemark": [
-      true, "single", "avoid-template", "avoid-escape"
-    ],
+    "no-suspicious-comment": false,
+    "no-unnecessary-local-variable": false,
+    "prefer-type-cast": false,
+    "quotemark": [true, "single", "avoid-template", "avoid-escape"],
     "semicolon": [true, "always", "ignore-interfaces"],
     "strict-boolean-expressions": false,
+    "trailing-comma": true,
     "typedef": false,
     "variable-name": [
-      true, "ban-keywords", "check-format", "allow-leading-underscore"
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
     ]
-  },
-  "rulesDirectory": []
+  }
 }

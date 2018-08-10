@@ -8,9 +8,9 @@ export function getSqlInsertStatement(table: string) {
 }
 
 export interface IQueryInsertParam<T> {
-    table: string,
-    values: T & object,
-    connection: Connection | PoolConnection,
+    table: string;
+    values: T & object;
+    connection: Connection | PoolConnection;
 }
 export function queryInsert<T>(param: IQueryInsertParam<T>) {
     const { table, values, connection } = param;

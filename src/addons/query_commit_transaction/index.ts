@@ -7,7 +7,7 @@ export function getSqlCommitTransactionStatement() {
 }
 
 export interface IQueryCommitTransactionParam {
-    connection: Connection | PoolConnection,
+    connection: Connection | PoolConnection;
 }
 export function queryCommitTransaction(param: IQueryCommitTransactionParam) {
     const { connection } = param;

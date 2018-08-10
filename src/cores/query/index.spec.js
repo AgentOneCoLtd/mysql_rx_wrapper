@@ -1,4 +1,5 @@
 "use strict";
+// tslint:disable:no-unsafe-any
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("./index");
 it('should get [result, fields]', (done) => {
@@ -13,10 +14,8 @@ it('should get [result, fields]', (done) => {
         connection: mockConnection,
     }).subscribe({
         next([result, fields]) {
-            expect(result)
-                .toBe(mockResult);
-            expect(fields)
-                .toBe(mockFields);
+            expect(result).toBe(mockResult);
+            expect(fields).toBe(mockFields);
         },
         error(error) {
             done.fail(error);
@@ -39,8 +38,7 @@ it('should get error', (done) => {
             done.fail('should not be called');
         },
         error(error) {
-            expect(error)
-                .toBeDefined();
+            expect(error).toBeDefined();
             done();
         },
         complete() {
