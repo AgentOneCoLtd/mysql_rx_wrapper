@@ -21,7 +21,7 @@ export function querySelectOnMatch<T, U>(param: IQuerySelectOnMatchParam<T>) {
 
     const sqlSelectStatement = getSqlSelectOnMatchStatement(table, matchProps);
 
-    return query<U>({
+    return query<U[]>({
         sql: sqlSelectStatement,
         connection,
     });
