@@ -4,6 +4,7 @@ export * from './src/cores/ok_packet';
 export * from './src/cores/pool_get_connection';
 export * from './src/cores/query';
 export { autoHandlePoolConnection } from './src/addons/auto_handle_pool_connection';
+export { autoHandlePoolConnectionTransaction, autoPoolConnTrx, } from './src/addons/auto_handle_pool_connection_transaction';
 export * from './src/addons/auto_handle_transaction';
 export * from './src/addons/escape_match_props';
 export * from './src/addons/get_sql_limit_clause';

@@ -1,7 +1,8 @@
-import { Pool, PoolConnection } from 'mysql';
+import { Pool } from 'mysql';
 import { queryConnHigherOrder } from '../auto_handle_pool_connection';
-export declare function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrder: queryConnHigherOrder<T>): import("rxjs/internal/Observable").Observable<[PoolConnection, T]>;
 /**
+ * @deprecated since version 0.7
+ *
  * similar to autoHandlePoolConnection but also autoHandleTransaction
  * @param   pool                    pool
  * @param   queryConnHigherOrder    function that take connection
