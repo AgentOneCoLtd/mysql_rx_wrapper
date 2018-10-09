@@ -1,6 +1,6 @@
 {
   "name": "@ag1/mysql_rx_wrapper",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "description": "use mysql lib in rx style",
   "main": "index.js",
   "author": "agent one co., ltd.",
@@ -20,9 +20,11 @@
   },
   "dependencies": {
     "@ag1/empty_object": "^0.1.3",
-    "@ag1/return_switch": "^0.1.4"
+    "@ag1/return_switch": "^0.1.4",
+    "depd": "^1.1.2"
   },
   "devDependencies": {
+    "@types/depd": "^1.1.32",
     "@types/jest": "^23.3.2",
     "@types/mysql": "^2.15.5",
     "jest": "^23.6.0",
