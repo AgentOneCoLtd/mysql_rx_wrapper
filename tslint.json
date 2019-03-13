@@ -6,7 +6,6 @@
     "no-relative-imports": false,
     "no-shadowed-variable": false,
     "no-submodule-imports": [true, "rxjs"],
-    "prefer-type-cast": false,
     "trailing-comma": true,
     "typedef": false
   }
