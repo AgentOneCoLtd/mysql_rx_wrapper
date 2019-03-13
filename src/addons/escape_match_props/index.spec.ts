@@ -20,6 +20,7 @@ describe('escapeMatchProps', () => {
     });
 
     it('should return `foo`.`a` IS NULL', () => {
+        // tslint:disable-next-line no-null-keyword
         const sql = escapeMatchProps('foo', { a: null });
 
         expect(sql).toBe('`foo`.`a` IS NULL');

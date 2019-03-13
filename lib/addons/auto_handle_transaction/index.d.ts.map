@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/addons/auto_handle_transaction/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,cAAc,EAAE,MAAM,OAAO,CAAC;AACnD,OAAO,EAAE,UAAU,EAAkB,MAAM,MAAM,CAAC;AAMlD;;;;;GAKG;AACH,wBAAgB,qBAAqB,CAAC,CAAC,EAAE,UAAU,EAAE,UAAU,GAAG,cAAc,EAAE,KAAK,EAAE,UAAU,CAAC,CAAC,CAAC,GAAG,UAAU,CAAC,CAAC,CAAC,CAQrH"}

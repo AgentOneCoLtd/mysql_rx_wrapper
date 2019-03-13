@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/addons/query_start_transaction/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,cAAc,EAAE,MAAM,OAAO,CAAC;AACnD,OAAO,EAAE,SAAS,EAAE,MAAM,uBAAuB,CAAC;AAGlD,wBAAgB,+BAA+B,WAE9C;AAED,MAAM,WAAW,2BAA2B;IACxC,UAAU,EAAE,UAAU,GAAG,cAAc,CAAC;CAC3C;AACD,wBAAgB,qBAAqB,CAAC,KAAK,EAAE,2BAA2B,mFASvE"}

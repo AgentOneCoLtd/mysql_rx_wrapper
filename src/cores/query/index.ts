@@ -13,5 +13,5 @@ export function query<T>(param: IQueryParam) {
 
     const fn: QueryInNodeCallbackFn<T> = (callback) => connection.query(option, callback);
 
-    return bindNodeCallback<[T, FieldInfo[] | undefined]>(fn.bind(fn) as () => typeof fn)();
+    return bindNodeCallback<[T, FieldInfo[] | undefined]>(<() => typeof fn>(<unknown>fn.bind(fn)))();
 }

@@ -12,6 +12,7 @@ export function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrd
     return obseravble.pipe(
         mergeMap((result) => of([connection, result] as [PoolConnection, T])),
 
+        // tslint:disable-next-line no-any
         catchError((error) => throwError([connection, error] as [PoolConnection, any])),
     );
 }
@@ -34,6 +35,7 @@ export function autoHandlePoolConnectionTransaction<T>(pool: Pool, queryConnHigh
             return of(result);
         }),
 
+        // tslint:disable-next-line no-any
         catchError(([connection, error]: [PoolConnection, any]) => {
             connection.release();
 
