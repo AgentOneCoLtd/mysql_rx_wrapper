@@ -1,18 +1,21 @@
 import { Pool, PoolConnection } from 'mysql';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { getConnection } from '../../cores/pool_get_connection';
 
 // private use
 export type queryConnHigherOrder<T> = (connection: PoolConnection) => Observable<T>;
 
 // private use
-export function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrder: queryConnHigherOrder<T>) {
+export function getQueryResult<T>(
+    connection: PoolConnection,
+    queryConnHigherOrder: queryConnHigherOrder<T>,
+): Observable<[PoolConnection, T]> {
     return queryConnHigherOrder(connection).pipe(
-        mergeMap((result) => of([connection, result] as [PoolConnection, T])),
+        map((result) => <[PoolConnection, T]>[connection, result]),
 
         // tslint:disable-next-line no-any
-        catchError((error) => throwError([connection, error] as [PoolConnection, any])),
+        catchError((error) => throwError(<[PoolConnection, any]>[connection, error])),
     );
 }
 
@@ -24,14 +27,14 @@ export function getQueryResult<T>(connection: PoolConnection, queryConnHigherOrd
  *                                  connection
  * @return                          result of query
  */
-export function autoHandlePoolConnection<T>(pool: Pool, queryConnHigherOrder: queryConnHigherOrder<T>) {
+export function autoHandlePoolConnection<T>(pool: Pool, queryConnHigherOrder: queryConnHigherOrder<T>): Observable<T> {
     return getConnection(pool).pipe(
         mergeMap((connection) => getQueryResult<T>(connection, queryConnHigherOrder)),
 
-        mergeMap(([connection, result]) => {
+        map(([connection, result]) => {
             connection.release();
 
-            return of(result);
+            return result;
         }),
 
         // tslint:disable-next-line no-any
