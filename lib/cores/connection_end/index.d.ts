@@ -1,3 +1,4 @@
 import { Connection } from 'mysql';
-export declare function end(connection: Connection): import("rxjs").Observable<undefined>;
+import { Observable } from 'rxjs';
+export declare function end(connection: Connection): Observable<undefined>;
 //# sourceMappingURL=index.d.ts.map

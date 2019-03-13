@@ -1,3 +1,4 @@
 import { Pool, PoolConnection } from 'mysql';
-export declare function getConnection(pool: Pool): import("rxjs").Observable<PoolConnection>;
+import { Observable } from 'rxjs';
+export declare function getConnection(pool: Pool): Observable<PoolConnection>;
 //# sourceMappingURL=index.d.ts.map

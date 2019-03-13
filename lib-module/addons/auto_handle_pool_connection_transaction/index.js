@@ -1,11 +1,11 @@
-import { of, throwError } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { getConnection } from '../../cores/pool_get_connection';
 import { autoHandleTransaction } from '../auto_handle_transaction';
 // private use
 export function getQueryResult(connection, queryConnHigherOrder) {
     const obseravble = autoHandleTransaction(connection, queryConnHigherOrder(connection));
-    return obseravble.pipe(mergeMap((result) => of([connection, result])), 
+    return obseravble.pipe(map((result) => [connection, result]), 
     // tslint:disable-next-line no-any
     catchError((error) => throwError([connection, error])));
 }
@@ -18,9 +18,9 @@ export function getQueryResult(connection, queryConnHigherOrder) {
  * @return                          result of query
  */
 export function autoHandlePoolConnectionTransaction(pool, queryConnHigherOrder) {
-    return getConnection(pool).pipe(mergeMap((connection) => getQueryResult(connection, queryConnHigherOrder)), mergeMap(([connection, result]) => {
+    return getConnection(pool).pipe(mergeMap((connection) => getQueryResult(connection, queryConnHigherOrder)), map(([connection, result]) => {
         connection.release();
-        return of(result);
+        return result;
     }), 
     // tslint:disable-next-line no-any
     catchError(([connection, error]) => {
