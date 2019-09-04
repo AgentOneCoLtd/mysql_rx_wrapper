@@ -4,4 +4,4 @@ use mysql lib in rx style
 
 ## support
 
-at least ES6/ES2015
+at least ES2015
