@@ -19,5 +19,5 @@ it('should return only limit', () => {
 });
 
 it('should throw error if offset present but limit absent', () => {
-    expect(() => getSqlLimitClause(undefined, 0)).toThrowError();
+    expect((): string => getSqlLimitClause(undefined, 0)).toThrowError();
 });

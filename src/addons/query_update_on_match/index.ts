@@ -1,12 +1,13 @@
 import { isEmptyObject } from '@ag1/empty_object';
 import { Connection, escapeId, PoolConnection } from 'mysql';
 import { IOkPacket } from '../../cores/ok_packet';
-import { query } from '../../cores/query';
+import { query, QueryResult } from '../../cores/query';
 import { joinStrList } from '../../utils/join_str_list';
 import { escapeMatchProps } from '../escape_match_props';
 import { getSqlLimitClause } from '../get_sql_limit_clause';
+import { Observable } from 'rxjs';
 
-export function getSqlUpdateOnMatchStatement(table: string, matchProps: object, limit?: number) {
+export function getSqlUpdateOnMatchStatement(table: string, matchProps: object, limit?: number): string {
     return joinStrList([
         `UPDATE ${escapeId(table)} SET ?`,
         `WHERE ${escapeMatchProps(table, matchProps)}`,
@@ -22,7 +23,7 @@ export interface IQueryUpdateOnMatchParam<T> {
     limit?: number;
     connection: Connection | PoolConnection;
 }
-export function queryUpdateOnMatch<T>(param: IQueryUpdateOnMatchParam<T>) {
+export function queryUpdateOnMatch<T>(param: IQueryUpdateOnMatchParam<T>): Observable<QueryResult<IOkPacket>> {
     const { table, matchProps, values, limit, connection } = param;
 
     if (isEmptyObject(matchProps) || isEmptyObject(values)) {

@@ -33,13 +33,13 @@ describe('escapeMatchProps', () => {
     });
 
     it('should throw error (empty obj)', () => {
-        const getlSql = () => escapeMatchProps('foo', {});
+        const getlSql = (): string => escapeMatchProps('foo', {});
 
         expect(getlSql).toThrowError();
     });
 
     it('should throw error (empty obj)', () => {
-        const getlSql = () =>
+        const getlSql = (): string =>
             escapeMatchProps('foo', {
                 a: () => 'bar',
             });

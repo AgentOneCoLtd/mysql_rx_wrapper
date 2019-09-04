@@ -1,4 +1,7 @@
 import { getSqlInsertStatement, queryInsert } from './index';
+import { Observable } from 'rxjs';
+import { QueryResult } from '../../cores/query';
+import { IOkPacket } from '../../cores/ok_packet';
 
 describe('getSqlInsertStatement', () => {
     it('should return INSERT INTO `foobar` SET ?;', () => {
@@ -10,7 +13,7 @@ describe('getSqlInsertStatement', () => {
 
 describe('queryInsert', () => {
     it('should throw error (empty value object)', () => {
-        const fx = () =>
+        const fx = (): Observable<QueryResult<IOkPacket>> =>
             queryInsert({
                 table: 'table',
                 values: {},

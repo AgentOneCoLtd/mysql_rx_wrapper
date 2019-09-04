@@ -1,5 +1,3 @@
-// tslint:disable:no-unsafe-any
-
 import { of, throwError } from 'rxjs';
 import { getConnection } from '../../cores/pool_get_connection';
 import { autoHandleTransaction } from '../auto_handle_transaction';

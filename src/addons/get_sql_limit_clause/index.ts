@@ -1,6 +1,6 @@
 import { returnSwitch } from '@ag1/return_switch';
 
-export function getSqlLimitClause(limit?: number, offset?: number) {
+export function getSqlLimitClause(limit?: number, offset?: number): string {
     const caseLimitOffset = limit !== undefined && offset !== undefined;
     const caseEmpty = limit === undefined && offset === undefined;
     const caseLimit = limit !== undefined;

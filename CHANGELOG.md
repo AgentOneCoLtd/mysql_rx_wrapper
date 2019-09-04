@@ -1,3 +1,7 @@
+## v1.1.0-beta.0
+
+* Update build process
+
 ## v1.0.0
 
 * Update project structure

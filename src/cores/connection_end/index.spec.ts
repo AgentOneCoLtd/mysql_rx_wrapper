@@ -1,5 +1,3 @@
-// tslint:disable:no-unsafe-any
-
 import { end } from './index';
 
 it('should end connection', (done) => {

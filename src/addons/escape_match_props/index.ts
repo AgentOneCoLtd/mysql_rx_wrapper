@@ -1,6 +1,6 @@
 import { escape, escapeId } from 'mysql';
 
-export function escapeMatchProps(table: string, matchProps: object) {
+export function escapeMatchProps(table: string, matchProps: object): string {
     const matchPropsStr = escape(matchProps);
 
     if (matchPropsStr.length === 0) {

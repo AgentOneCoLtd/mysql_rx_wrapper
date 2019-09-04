@@ -1,11 +1,17 @@
 import { isEmptyObject } from '@ag1/empty_object';
 import { Connection, escapeId, PoolConnection } from 'mysql';
-import { query } from '../../cores/query';
+import { query, QueryResult } from '../../cores/query';
 import { joinStrList } from '../../utils/join_str_list';
 import { escapeMatchProps } from '../escape_match_props';
 import { getSqlLimitClause } from '../get_sql_limit_clause';
+import { Observable } from 'rxjs';
 
-export function getSqlSelectOnMatchStatement(table: string, matchProps: object, limit?: number, offset?: number) {
+export function getSqlSelectOnMatchStatement(
+    table: string,
+    matchProps: object,
+    limit?: number,
+    offset?: number,
+): string {
     return joinStrList([
         `SELECT * FROM ${escapeId(table)}`,
         `WHERE ${escapeMatchProps(table, matchProps)}`,
@@ -21,7 +27,7 @@ export interface IQuerySelectOnMatchParam<T> {
     offset?: number;
     connection: Connection | PoolConnection;
 }
-export function querySelectOnMatch<T, U>(param: IQuerySelectOnMatchParam<T>) {
+export function querySelectOnMatch<T, U>(param: IQuerySelectOnMatchParam<T>): Observable<QueryResult<U[]>> {
     const { table, matchProps, limit, offset, connection } = param;
 
     if (isEmptyObject(matchProps)) {

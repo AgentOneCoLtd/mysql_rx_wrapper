@@ -9,27 +9,27 @@ export type queryConnHigherOrder<T> = (connection: PoolConnection) => Observable
 // private use
 export function getQueryResult<T>(
     connection: PoolConnection,
-    queryConnHigherOrder: queryConnHigherOrder<T>,
+    queryConn: queryConnHigherOrder<T>,
 ): Observable<[PoolConnection, T]> {
-    return queryConnHigherOrder(connection).pipe(
-        map((result) => <[PoolConnection, T]>[connection, result]),
+    return queryConn(connection).pipe(
+        map((result) => [connection, result] as [PoolConnection, T]),
 
-        // tslint:disable-next-line no-any
-        catchError((error) => throwError(<[PoolConnection, any]>[connection, error])),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catchError((error) => throwError([connection, error] as [PoolConnection, any])),
     );
 }
 
 /**
  * get connection from pool and release when finish or error
  * @param   pool                    pool
- * @param   queryConnHigherOrder    function that take connection
+ * @param   queryConn    function that take connection
  *                                  and return query that use the
  *                                  connection
  * @return                          result of query
  */
-export function autoHandlePoolConnection<T>(pool: Pool, queryConnHigherOrder: queryConnHigherOrder<T>): Observable<T> {
+export function autoHandlePoolConnection<T>(pool: Pool, queryConn: queryConnHigherOrder<T>): Observable<T> {
     return getConnection(pool).pipe(
-        mergeMap((connection) => getQueryResult<T>(connection, queryConnHigherOrder)),
+        mergeMap((connection) => getQueryResult<T>(connection, queryConn)),
 
         map(([connection, result]) => {
             connection.release();
@@ -37,7 +37,7 @@ export function autoHandlePoolConnection<T>(pool: Pool, queryConnHigherOrder: qu
             return result;
         }),
 
-        // tslint:disable-next-line no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         catchError(([connection, error]: [PoolConnection, any]) => {
             connection.release();
 

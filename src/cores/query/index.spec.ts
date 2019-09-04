@@ -1,5 +1,3 @@
-// tslint:disable:no-unsafe-any
-
 import { query } from './index';
 
 it('should get [result, fields]', (done) => {

@@ -1,5 +1,3 @@
-// tslint:disable:no-unsafe-any
-
 import { of, throwError } from 'rxjs';
 import { queryCommitTransaction } from '../query_commit_transaction';
 import { queryRollbackTransaction } from '../query_rollback_transaction';

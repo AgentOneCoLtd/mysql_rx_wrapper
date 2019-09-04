@@ -2,38 +2,35 @@ import { Pool, PoolConnection } from 'mysql';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { getConnection } from '../../cores/pool_get_connection';
-import { queryConnHigherOrder } from '../auto_handle_pool_connection';
 import { autoHandleTransaction } from '../auto_handle_transaction';
+import { queryConnHigherOrder } from '../auto_handle_pool_connection';
 
 // private use
 export function getQueryResult<T>(
     connection: PoolConnection,
-    queryConnHigherOrder: queryConnHigherOrder<T>,
+    queryConn: queryConnHigherOrder<T>,
 ): Observable<[PoolConnection, T]> {
-    const obseravble = autoHandleTransaction(connection, queryConnHigherOrder(connection));
+    const obseravble = autoHandleTransaction(connection, queryConn(connection));
 
     return obseravble.pipe(
-        map((result) => <[PoolConnection, T]>[connection, result]),
+        map((result) => [connection, result] as [PoolConnection, T]),
 
-        // tslint:disable-next-line no-any
-        catchError((error) => throwError(<[PoolConnection, any]>[connection, error])),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catchError((error) => throwError([connection, error] as [PoolConnection, any])),
     );
 }
 
 /**
  * similar to autoHandlePoolConnection but also autoHandleTransaction
  * @param   pool                    pool
- * @param   queryConnHigherOrder    function that take connection
+ * @param   queryConn    function that take connection
  *                                  and return query that use the
  *                                  connection
  * @return                          result of query
  */
-export function autoHandlePoolConnectionTransaction<T>(
-    pool: Pool,
-    queryConnHigherOrder: queryConnHigherOrder<T>,
-): Observable<T> {
+export function autoHandlePoolConnectionTransaction<T>(pool: Pool, queryConn: queryConnHigherOrder<T>): Observable<T> {
     return getConnection(pool).pipe(
-        mergeMap((connection) => getQueryResult<T>(connection, queryConnHigherOrder)),
+        mergeMap((connection) => getQueryResult<T>(connection, queryConn)),
 
         map(([connection, result]) => {
             connection.release();
@@ -41,7 +38,7 @@ export function autoHandlePoolConnectionTransaction<T>(
             return result;
         }),
 
-        // tslint:disable-next-line no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         catchError(([connection, error]: [PoolConnection, any]) => {
             connection.release();
 

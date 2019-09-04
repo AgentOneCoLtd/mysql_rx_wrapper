@@ -1,4 +1,7 @@
 import { getSqlUpdateOnMatchStatement, queryUpdateOnMatch } from './index';
+import { Observable } from 'rxjs';
+import { QueryResult } from '../../cores/query';
+import { IOkPacket } from '../../cores/ok_packet';
 
 describe('getSqlUpdateOnMatchStatement', () => {
     it("should return UPDATE `foo` SET ? WHERE `foo`.`a` = 'a' ;", () => {
@@ -16,7 +19,7 @@ describe('getSqlUpdateOnMatchStatement', () => {
 
 describe('queryUpdateOnMatch', () => {
     it('should throw error (empty matchProps)', () => {
-        const fx = () =>
+        const fx = (): Observable<QueryResult<IOkPacket>> =>
             queryUpdateOnMatch({
                 table: 'table',
                 matchProps: {},
@@ -28,7 +31,7 @@ describe('queryUpdateOnMatch', () => {
     });
 
     it('should throw error (empty values)', () => {
-        const fx = () =>
+        const fx = (): Observable<QueryResult<IOkPacket>> =>
             queryUpdateOnMatch({
                 table: 'table',
                 matchProps: { a: 'a' },

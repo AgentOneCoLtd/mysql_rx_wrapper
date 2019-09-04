@@ -1,5 +1,3 @@
-// tslint:disable:no-unsafe-any
-
 import { getConnection } from './index';
 
 it('should get pool connection', (done) => {

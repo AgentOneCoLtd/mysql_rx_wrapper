@@ -1,6 +1,4 @@
-// tslint:disable:no-unsafe-any
-
-import { of, throwError } from 'rxjs';
+import { of, throwError, Observable } from 'rxjs';
 import { getConnection } from '../../cores/pool_get_connection';
 import { autoHandlePoolConnection, getQueryResult } from './index';
 
@@ -10,7 +8,7 @@ describe('getQueryResult', () => {
     it('should return [connection, result]', (done) => {
         const mockConn = 'conn' as any;
         const RESULT = 'foobar';
-        const mockQueryConnHigherOrder = (_conn: any) => of(RESULT);
+        const mockQueryConnHigherOrder = (_conn: any): Observable<string> => of(RESULT);
 
         getQueryResult(mockConn, mockQueryConnHigherOrder).subscribe({
             next([connection, result]) {
@@ -27,7 +25,7 @@ describe('getQueryResult', () => {
 
     it('should throw [connection, error]', (done) => {
         const mockConn = 'conn' as any;
-        const mockQueryConnHigherOrder = (_conn: any) => throwError(new Error('foobar'));
+        const mockQueryConnHigherOrder = (_conn: any): Observable<never> => throwError(new Error('foobar'));
 
         getQueryResult(mockConn, mockQueryConnHigherOrder).subscribe({
             next([_connection, _result]) {
@@ -59,7 +57,7 @@ describe('autoHandlePoolConnection', () => {
         } as any;
 
         const RESULT = 'foobar';
-        const mockQueryConnHigherOrder = (_conn: any) => of(RESULT);
+        const mockQueryConnHigherOrder = (_conn: any): Observable<string> => of(RESULT);
 
         const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
 
@@ -89,7 +87,7 @@ describe('autoHandlePoolConnection', () => {
             release: mockReleaseFn,
         } as any;
 
-        const mockQueryConnHigherOrder = (_conn: any) => throwError(new Error('foobar'));
+        const mockQueryConnHigherOrder = (_conn: any): Observable<never> => throwError(new Error('foobar'));
 
         const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
 

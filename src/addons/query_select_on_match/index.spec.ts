@@ -1,4 +1,6 @@
 import { getSqlSelectOnMatchStatement, querySelectOnMatch } from './index';
+import { Observable } from 'rxjs';
+import { QueryResult } from '../../cores/query';
 
 describe('getSqlSelectOnMatchStatement', () => {
     it("should return SELECT * FROM `foo` WHERE `foo`.`a` = 'a' ;", () => {
@@ -16,7 +18,7 @@ describe('getSqlSelectOnMatchStatement', () => {
 
 describe('querySelectOnMatch', () => {
     it('should throw error (empty matchProps)', () => {
-        const fx = () =>
+        const fx = (): Observable<QueryResult<unknown>> =>
             querySelectOnMatch({
                 table: 'table',
                 matchProps: {},

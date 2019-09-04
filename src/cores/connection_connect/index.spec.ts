@@ -1,5 +1,3 @@
-// tslint:disable:no-unsafe-any
-
 import { connect } from './index';
 
 it('should connect connection', (done) => {
