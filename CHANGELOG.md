@@ -1,3 +1,8 @@
+## v1.1.0-beta.1
+
+* Remove // HACK
+* Rename `queryConnHigherOrder` to `QueryConnHigherOrder`
+
 ## v1.1.0-beta.0
 
 * Update build process
