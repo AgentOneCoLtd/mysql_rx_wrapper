@@ -1,7 +1,7 @@
 import { Pool, PoolConnection } from 'mysql';
 import { Observable } from 'rxjs';
-export declare type queryConnHigherOrder<T> = (connection: PoolConnection) => Observable<T>;
-export declare function getQueryResult<T>(connection: PoolConnection, queryConn: queryConnHigherOrder<T>): Observable<[PoolConnection, T]>;
+export declare type QueryConnHigherOrder<T> = (connection: PoolConnection) => Observable<T>;
+export declare function getQueryResult<T>(connection: PoolConnection, queryConn: QueryConnHigherOrder<T>): Observable<[PoolConnection, T]>;
 /**
  * get connection from pool and release when finish or error
  * @param   pool                    pool
@@ -10,5 +10,5 @@ export declare function getQueryResult<T>(connection: PoolConnection, queryConn:
  *                                  connection
  * @return                          result of query
  */
-export declare function autoHandlePoolConnection<T>(pool: Pool, queryConn: queryConnHigherOrder<T>): Observable<T>;
+export declare function autoHandlePoolConnection<T>(pool: Pool, queryConn: QueryConnHigherOrder<T>): Observable<T>;
 //# sourceMappingURL=index.d.ts.map
