@@ -1,6 +1,6 @@
 {
   "name": "@ag1/mysql_rx_wrapper",
-  "version": "1.1.0-beta.1",
+  "version": "1.1.0",
   "description": "use mysql lib in rx style",
   "main": "./lib/index.js",
   "jsnext:main": "./lib-module/index.js",
@@ -16,8 +16,8 @@
     "lint": "eslint --ext .ts,.js . --fix",
     "prettier:config": "prettier --no-config --write \"./*.{json,yml}\"",
     "prettier:ts": "prettier --write \"./src/**/*.ts\"",
-    "prettier": "yarn prettier:config && yarn prettier:ts",
-    "test": "jest",
+    "prettier": "yarn prettier:config --loglevel warn && yarn prettier:ts --loglevel warn",
+    "test": "jest --passWithNoTests",
     "build": "yarn prettier && yarn lint && yarn compile && yarn test"
   },
   "peerDependencies": {
