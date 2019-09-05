@@ -4,12 +4,12 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { getConnection } from '../../cores/pool_get_connection';
 
 // private use
-export type queryConnHigherOrder<T> = (connection: PoolConnection) => Observable<T>;
+export type QueryConnHigherOrder<T> = (connection: PoolConnection) => Observable<T>;
 
 // private use
 export function getQueryResult<T>(
     connection: PoolConnection,
-    queryConn: queryConnHigherOrder<T>,
+    queryConn: QueryConnHigherOrder<T>,
 ): Observable<[PoolConnection, T]> {
     return queryConn(connection).pipe(
         map((result) => [connection, result] as [PoolConnection, T]),
@@ -27,7 +27,7 @@ export function getQueryResult<T>(
  *                                  connection
  * @return                          result of query
  */
-export function autoHandlePoolConnection<T>(pool: Pool, queryConn: queryConnHigherOrder<T>): Observable<T> {
+export function autoHandlePoolConnection<T>(pool: Pool, queryConn: QueryConnHigherOrder<T>): Observable<T> {
     return getConnection(pool).pipe(
         mergeMap((connection) => getQueryResult<T>(connection, queryConn)),
 

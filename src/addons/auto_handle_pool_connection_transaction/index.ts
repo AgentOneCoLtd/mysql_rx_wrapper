@@ -3,12 +3,12 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { getConnection } from '../../cores/pool_get_connection';
 import { autoHandleTransaction } from '../auto_handle_transaction';
-import { queryConnHigherOrder } from '../auto_handle_pool_connection';
+import { QueryConnHigherOrder } from '../auto_handle_pool_connection';
 
 // private use
 export function getQueryResult<T>(
     connection: PoolConnection,
-    queryConn: queryConnHigherOrder<T>,
+    queryConn: QueryConnHigherOrder<T>,
 ): Observable<[PoolConnection, T]> {
     const obseravble = autoHandleTransaction(connection, queryConn(connection));
 
@@ -28,7 +28,7 @@ export function getQueryResult<T>(
  *                                  connection
  * @return                          result of query
  */
-export function autoHandlePoolConnectionTransaction<T>(pool: Pool, queryConn: queryConnHigherOrder<T>): Observable<T> {
+export function autoHandlePoolConnectionTransaction<T>(pool: Pool, queryConn: QueryConnHigherOrder<T>): Observable<T> {
     return getConnection(pool).pipe(
         mergeMap((connection) => getQueryResult<T>(connection, queryConn)),
 
