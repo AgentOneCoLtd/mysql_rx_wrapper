@@ -13,12 +13,7 @@ beforeEach(() => {
 describe('getQueryResult', () => {
     it('should return [connection, result]', (done) => {
         const RESULT = 'foobar';
-        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(of(RESULT));
-
-        // HACK: infer mockFunction type
-        if (!jest.isMockFunction(mockAutoHandleTransaction)) {
-            throw new Error('MOCK_EXPECTED');
-        }
+        (autoHandleTransaction as jest.Mock).mockReturnValue(of(RESULT));
 
         const mockConn = 'conn' as any;
         const mockQueryConnHigherOrder = jest.fn();
@@ -37,14 +32,7 @@ describe('getQueryResult', () => {
     });
 
     it('should throw [connection, error]', (done) => {
-        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(
-            throwError(new Error('foobar')),
-        );
-
-        // HACK: infer mockFunction type
-        if (!jest.isMockFunction(mockAutoHandleTransaction)) {
-            throw new Error('MOCK_EXPECTED');
-        }
+        (autoHandleTransaction as jest.Mock).mockReturnValue(throwError(new Error('foobar')));
 
         const mockConn = 'conn' as any;
         const mockQueryConnHigherOrder = jest.fn();
@@ -77,13 +65,8 @@ describe('autoPoolConnTrx', () => {
         const mockQueryConnHigherOrder = jest.fn();
 
         const RESULT = 'foobar';
-        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(of(RESULT));
-        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
-
-        // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction) && jest.isMockFunction(mockGetConn))) {
-            throw new Error('MOCK_EXPECTED');
-        }
+        (autoHandleTransaction as jest.Mock).mockReturnValue(of(RESULT));
+        (getConnection as jest.Mock).mockReturnValue(of(mockConn));
 
         autoPoolConnTrx(mockConn, mockQueryConnHigherOrder).subscribe({
             next(result) {
@@ -108,15 +91,8 @@ describe('autoPoolConnTrx', () => {
 
         const mockQueryConnHigherOrder = jest.fn();
 
-        const mockAutoHandleTransaction = (autoHandleTransaction as any).mockReturnValue(
-            throwError(new Error('foobar')),
-        );
-        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
-
-        // HACK: infer mockFunction type
-        if (!(jest.isMockFunction(mockAutoHandleTransaction) && jest.isMockFunction(mockGetConn))) {
-            throw new Error('MOCK_EXPECTED');
-        }
+        (autoHandleTransaction as jest.Mock).mockReturnValue(throwError(new Error('foobar')));
+        (getConnection as jest.Mock).mockReturnValue(of(mockConn));
 
         autoPoolConnTrx(mockConn, mockQueryConnHigherOrder).subscribe({
             next(_result) {

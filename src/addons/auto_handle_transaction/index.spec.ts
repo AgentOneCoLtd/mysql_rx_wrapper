@@ -17,14 +17,9 @@ it('should commit and return result of query', (done) => {
     const mockConnection = {} as any;
     const mockQuery = of(RESULT);
 
-    const mockCommit = (queryCommitTransaction as any).mockReturnValue(of('commit'));
-    const mockRollback = (queryRollbackTransaction as any).mockReturnValue(of('rollback'));
-    const mockStart = (queryStartTransaction as any).mockReturnValue(of('start'));
-
-    // HACK: infer mockFunction type
-    if (!(jest.isMockFunction(mockCommit) && jest.isMockFunction(mockRollback) && jest.isMockFunction(mockStart))) {
-        throw new Error('MOCK_EXPECTED');
-    }
+    const mockCommit = (queryCommitTransaction as jest.Mock).mockReturnValue(of('commit'));
+    const mockRollback = (queryRollbackTransaction as jest.Mock).mockReturnValue(of('rollback'));
+    const mockStart = (queryStartTransaction as jest.Mock).mockReturnValue(of('start'));
 
     autoHandleTransaction(mockConnection, mockQuery).subscribe({
         next(result) {
@@ -49,14 +44,9 @@ it('should rollback and throw error', (done) => {
     const mockConnection = {} as any;
     const mockQuery = throwError(new Error('foobar'));
 
-    const mockCommit = (queryCommitTransaction as any).mockReturnValue(of('commit'));
-    const mockRollback = (queryRollbackTransaction as any).mockReturnValue(of('rollback'));
-    const mockStart = (queryStartTransaction as any).mockReturnValue(of('start'));
-
-    // HACK: infer mockFunction type
-    if (!(jest.isMockFunction(mockCommit) && jest.isMockFunction(mockRollback) && jest.isMockFunction(mockStart))) {
-        throw new Error('MOCK_EXPECTED');
-    }
+    const mockCommit = (queryCommitTransaction as jest.Mock).mockReturnValue(of('commit'));
+    const mockRollback = (queryRollbackTransaction as jest.Mock).mockReturnValue(of('rollback'));
+    const mockStart = (queryStartTransaction as jest.Mock).mockReturnValue(of('start'));
 
     autoHandleTransaction(mockConnection, mockQuery).subscribe({
         next(_result) {

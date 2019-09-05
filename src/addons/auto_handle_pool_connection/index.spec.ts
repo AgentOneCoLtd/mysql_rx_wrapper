@@ -59,12 +59,7 @@ describe('autoHandlePoolConnection', () => {
         const RESULT = 'foobar';
         const mockQueryConnHigherOrder = (_conn: any): Observable<string> => of(RESULT);
 
-        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
-
-        // HACK: infer mockFunction type
-        if (!jest.isMockFunction(mockGetConn)) {
-            throw new Error('MOCK_EXPECTED');
-        }
+        (getConnection as jest.Mock).mockReturnValue(of(mockConn));
 
         autoHandlePoolConnection(mockConn, mockQueryConnHigherOrder).subscribe({
             next(result) {
@@ -89,12 +84,7 @@ describe('autoHandlePoolConnection', () => {
 
         const mockQueryConnHigherOrder = (_conn: any): Observable<never> => throwError(new Error('foobar'));
 
-        const mockGetConn = (getConnection as any).mockReturnValue(of(mockConn));
-
-        // HACK: infer mockFunction type
-        if (!jest.isMockFunction(mockGetConn)) {
-            throw new Error('MOCK_EXPECTED');
-        }
+        (getConnection as jest.Mock).mockReturnValue(of(mockConn));
 
         autoHandlePoolConnection(mockConn, mockQueryConnHigherOrder).subscribe({
             next(_result) {
