@@ -1,14 +1,15 @@
-## v1.1.0-beta.1
+## v1.1.1
+* Change dev nodejs version to 12 from 10
+* Upgrade libs
 
+## v1.1.0-beta.1
 * Remove // HACK
 * Rename `queryConnHigherOrder` to `QueryConnHigherOrder`
 
 ## v1.1.0-beta.0
-
 * Update build process
 
 ## v1.0.0
-
 * Update project structure
 * Update typescript configs
 * Update lint rules

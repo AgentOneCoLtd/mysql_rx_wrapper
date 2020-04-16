@@ -1,6 +1,6 @@
 {
   "name": "@ag1/mysql_rx_wrapper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "use mysql lib in rx style",
   "main": "./lib/index.js",
   "jsnext:main": "./lib-module/index.js",
