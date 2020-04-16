@@ -1,7 +1,9 @@
 # MySql Rx Wrapper
 
-use mysql lib in rx style
+![Node.js CI](https://github.com/AgentOneCoLtd/mysql_rx_wrapper/workflows/Node.js%20CI/badge.svg)
 
-## support
+Use mysql lib in rx style.
 
-at least ES2015
+## Support
+
+At least ES2015
